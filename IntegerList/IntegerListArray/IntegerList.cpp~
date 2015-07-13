@@ -130,9 +130,6 @@ int IntegerList::getElement(int element){
 	return list[element];
 }
 
-/**
- *	The bubbleSort() arrange the integer list in ascending order 
- */
 void IntegerList::bubbleSort() {
  	bool sorted = false;	
 	int beginIndex = 0;
