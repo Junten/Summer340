@@ -16,7 +16,7 @@ using namespace std;
  */
 SortedIntegerList::SortedIntegerList():length(0) {
 	headPtr = new Node();
-	headPtr = 0;
+	headPtr = nullptr;
 }
 
 /**
@@ -41,13 +41,13 @@ SortedIntegerList::~SortedIntegerList() {
  */
 void SortedIntegerList::insert(int value) {
 	Node *currPtr = headPtr;
-	Node *prevPtr = 0;
+	Node *prevPtr = nullptr;
 	Node *newPtr = new Node();
 	newPtr->data = value;
-	newPtr->nextPtr = 0;
+	newPtr->nextPtr = nullptr;
 
 	if (headPtr) {
-		while (currPtr->next) {
+		while (currPtr->nextPtr) {
 			if (value > currPtr->data) {
 				prevPtr = currPtr;
 				currPtr = currPtr->nextPtr;
@@ -55,7 +55,7 @@ void SortedIntegerList::insert(int value) {
 				break;
 			}
 		}
-		if (!prevPtr) {
+		if (prevPtr) {
 			if (!currPtr->nextPtr) {
 				currPtr->nextPtr = newPtr;
 			} else {
@@ -138,7 +138,7 @@ int SortedIntegerList::valueIndex(int value) {
  */
 void SortedIntegerList::indexDelete(int index) {
 	Node *currPtr = headPtr;
-	Node *prevPtr = 0;
+	Node *prevPtr = nullptr;
 	int currentIndex = 0;
 
 	while (index != currentIndex) {
@@ -156,8 +156,8 @@ int main() {
 	list.insert(78);
 	cout << list.getElement(0) << endl;
 	list.insert(77);
-	// list.insert(44);
-	// list.insert(5);
+	list.insert(44);
+	list.insert(5);
 	// for (int i = 0; i < list.getLength(); i++) {
 	// 	cout << list.getElement(i) << endl;
 	// }
