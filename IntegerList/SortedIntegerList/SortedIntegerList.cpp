@@ -22,7 +22,7 @@ SortedIntegerList::SortedIntegerList():length(0) {
 /**
  *	The destructor, delete all the nodes of the integer list 
  */
- SortedIntegerList::~SortedIntegerList() {
+SortedIntegerList::~SortedIntegerList() {
  	Node *currPtr = headPtr;
  	Node *tempPtr = headPtr;
  	while (currPtr->nextPtr) {
@@ -30,7 +30,7 @@ SortedIntegerList::SortedIntegerList():length(0) {
  		delete tempPtr;
  		tempPtr = currPtr;
  	}
- }
+}
 
 /**
  *	The insert() function add an integer to the list in the ascending 
@@ -46,13 +46,29 @@ void SortedIntegerList::insert(int value) {
 	newPtr->data = value;
 	newPtr->nextPtr = 0;
 
-	while (value > currPtr->data) {
-		prevPtr = currPtr;
-		currPtr = currPtr->nextPtr;
+	if (headPtr) {
+		while (currPtr->next) {
+			if (value > currPtr->data) {
+				prevPtr = currPtr;
+				currPtr = currPtr->nextPtr;
+			} else {
+				break;
+			}
+		}
+		if (!prevPtr) {
+			if (!currPtr->nextPtr) {
+				currPtr->nextPtr = newPtr;
+			} else {
+				prevPtr->nextPtr = newPtr;
+				newPtr = currPtr;
+			}
+		} else {
+			headPtr = newPtr;
+			newPtr->nextPtr = currPtr;
+		}
+	} else {
+		headPtr = newPtr;
 	}
-
-	prevPtr->nextPtr = newPtr;
-	newPtr = currPtr;
 	length++;
 }
 
@@ -135,5 +151,16 @@ void SortedIntegerList::indexDelete(int index) {
 }
 
 int main() {
-	return 0;
+	SortedIntegerList list;
+
+	list.insert(78);
+	cout << list.getElement(0) << endl;
+	list.insert(77);
+	// list.insert(44);
+	// list.insert(5);
+	// for (int i = 0; i < list.getLength(); i++) {
+	// 	cout << list.getElement(i) << endl;
+	// }
+	return 0; 
+
 }
