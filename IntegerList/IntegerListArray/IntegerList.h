@@ -42,6 +42,7 @@ private:
 	int length;  
 public:
 	IntegerList();
+	~IntegerList();
 	void push(int value);
 	int pop();
 	void pushEnd(int value);
@@ -50,5 +51,4 @@ public:
 	int getElement(int element);
 	void bubbleSort();
 };
-
 #endif

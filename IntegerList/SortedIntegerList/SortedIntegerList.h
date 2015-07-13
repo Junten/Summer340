@@ -37,7 +37,7 @@ public:
 class SortedIntegerList {
 private:
 	//	First pointer node of the list
-	Node *headerPtr;
+	Node *headPtr;
 	//	The size of the integer list
 	int length;
 
@@ -48,7 +48,7 @@ public:
 	int getElement(int index);
 	int getLength();
 	int valueIndex(int value);
-	void delete(int index);
+	void indexDelete(int index);
 };
 
 #endif

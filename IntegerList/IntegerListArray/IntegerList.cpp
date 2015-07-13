@@ -16,6 +16,13 @@ using namespace std;
 IntegerList::IntegerList() :length(0), list(0){
 }
 
+/**
+ *	The destructor delete all the value in the integer list
+ */
+IntegerList::~IntegerList() {
+	delete[] list;
+}
+
 /** 
  * 	The push() function add an integer to the beginning of the array.
  *

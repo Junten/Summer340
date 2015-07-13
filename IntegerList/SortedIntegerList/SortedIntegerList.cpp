@@ -66,14 +66,12 @@ void SortedIntegerList::insert(int value) {
  *	index postion
  */
 int SortedIntegerList::getElement(int index) {
-	try {
-
-	} catch() {
-
-	}
 	Node *currPtr = headPtr;
-	for (int i = 0; i < index; i++) {
+	int currentIndex = 0;
+
+	while (index != currentIndex) {
 		currPtr = currPtr->nextPtr;
+		currentIndex++;
 	}
 	return currPtr->data;
 }
@@ -97,7 +95,22 @@ int SortedIntegerList::getLength() {
  *	sorted list
  */
 int SortedIntegerList::valueIndex(int value) {
+	int currentIndex = 0;
+	Node *currPtr = headPtr;
+	while(currPtr->nextPtr) {
+		if (value == currPtr->data)
+			break;
+		else {
+			currPtr = currPtr->nextPtr;
+			currPtr++;
+		}
+	}
 
+	if (currentIndex == length - 1) {
+		cout << "The value(" << value << ") doesn't exist in the integer list." << endl;
+		return 0;
+	}
+	return currentIndex;
 }
 
 /**
@@ -107,6 +120,20 @@ int SortedIntegerList::valueIndex(int value) {
  *	@param int index containing the index number that be removed from the 
  *	sorted list
  */
-void delete(int index) {
+void SortedIntegerList::indexDelete(int index) {
+	Node *currPtr = headPtr;
+	Node *prevPtr = 0;
+	int currentIndex = 0;
 
+	while (index != currentIndex) {
+		currentIndex++;
+		prevPtr = currPtr;
+		currPtr = currPtr->nextPtr;
+	}
+	prevPtr->nextPtr = currPtr->nextPtr;
+	delete currPtr;
+}
+
+int main() {
+	return 0;
 }
