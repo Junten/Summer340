@@ -154,13 +154,12 @@ int main() {
 	SortedIntegerList list;
 
 	list.insert(78);
-	cout << list.getElement(0) << endl;
 	list.insert(77);
 	list.insert(44);
 	list.insert(5);
-	// for (int i = 0; i < list.getLength(); i++) {
-	// 	cout << list.getElement(i) << endl;
-	// }
+	for (int i = 0; i < list.getLength(); i++) {
+		cout << list.getElement(i) << endl;
+	}
 	return 0; 
 
 }
