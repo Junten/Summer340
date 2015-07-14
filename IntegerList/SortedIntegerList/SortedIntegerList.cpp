@@ -23,13 +23,13 @@ SortedIntegerList::SortedIntegerList():length(0) {
  *	The destructor, delete all the nodes of the integer list 
  */
 SortedIntegerList::~SortedIntegerList() {
- 	Node *currPtr = headPtr;
- 	Node *tempPtr = headPtr;
- 	while (currPtr->nextPtr) {
- 		currPtr = currPtr->nextPtr;
- 		delete tempPtr;
- 		tempPtr = currPtr;
- 	}
+	Node *currPtr = headPtr;
+	Node *tempPtr = headPtr;
+	while (currPtr->nextPtr) {
+		currPtr = currPtr->nextPtr;
+		delete tempPtr;
+		tempPtr = currPtr;
+	}
 }
 
 /**
@@ -123,20 +123,22 @@ int SortedIntegerList::valueCount(int value) {
 int SortedIntegerList::valueIndex(int value) {
 	int currentIndex = 0;
 	Node *currPtr = headPtr;
+	bool valueExist = false;
 	while(currPtr->nextPtr) {
-		if (value == currPtr->data)
-			break;
-		else {
-			currPtr = currPtr->nextPtr;
-			currPtr++;
+		if (value == currPtr->data) {
+			valueExist = true;
+		 	break;
 		}
+		currPtr = currPtr->nextPtr;
+		currentIndex++;
 	}
 
-	if (currentIndex == length - 1) {
-		cout << "The value(" << value << ") doesn't exist in the integer list." << endl;
-		return 0;
+	if (!valueExist) {
+		cout << "\nThe value is not exist in the integer list!" << endl;
+		return -1;
+	} else {
+		return currentIndex;
 	}
-	return currentIndex;
 }
 
 /**
@@ -172,7 +174,7 @@ int main() {
 	for (int i = 0; i < 6; i++) {
 		cout << list.getElement(i) << endl;
 	}
-	cout << endl << list.valueCount(5) << endl;
+	cout << list.valueIndex(90) << endl;
 	return 0; 
 
 }
