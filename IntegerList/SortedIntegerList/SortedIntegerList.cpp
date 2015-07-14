@@ -134,7 +134,7 @@ int SortedIntegerList::valueIndex(int value) {
 	}
 
 	if (!valueExist) {
-		cout << "\nThe value is not exist in the integer list!" << endl;
+		cout << "\nThe value is not exist in the integer list!";
 		return -1;
 	} else {
 		return currentIndex;
@@ -162,19 +162,26 @@ void SortedIntegerList::indexDelete(int index) {
 	delete currPtr;
 }
 
-int main() {
-	SortedIntegerList list;
 
-	list.insert(78);
-	list.insert(77);
-	list.insert(44);
-	list.insert(5);
-	list.insert(5);
-	list.insert(5);
-	for (int i = 0; i < 6; i++) {
-		cout << list.getElement(i) << endl;
-	}
-	cout << list.valueIndex(90) << endl;
-	return 0; 
+// int main() {
+// 	SortedIntegerList list;
 
-}
+// 	list.insert(78);
+// 	list.insert(77);
+// 	list.insert(44);
+// 	list.insert(5);
+// 	list.insert(5);
+// 	list.insert(5);
+// 	for (int i = 0; i < 6; i++) {
+// 		cout << list.getElement(i) << endl;
+// 	}
+
+// 	cout << list.valueIndex(90) << endl;
+
+// 	list.indexDelete(3);
+// 	for (int i = 0; i < 5; i++) {
+// 		cout << list.getElement(i) << endl;
+// 	}
+// 	return 0; 
+
+// }
