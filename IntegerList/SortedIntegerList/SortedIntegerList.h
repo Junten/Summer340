@@ -46,7 +46,7 @@ public:
 	~SortedIntegerList();
 	void insert(int value);
 	int getElement(int index);
-	int getLength();
+	int valueCount(int value);
 	int valueIndex(int value);
 	void indexDelete(int index);
 };

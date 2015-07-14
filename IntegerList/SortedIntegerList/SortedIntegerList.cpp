@@ -93,19 +93,29 @@ int SortedIntegerList::getElement(int index) {
 }
 
 /**
- *	The getLength() function get the numbers of integers in the sorted list
+ *	The valueCount() function get the numbers of the value in the sorted list
  *	
+ *	@param int value conataing the value that is searched for number in the sorted list
+ *
  *	@returns int containing the numbers of integer in the list
  */
-int SortedIntegerList::getLength() {
-	return length;
+int SortedIntegerList::valueCount(int value) {
+	int count = 0;
+	Node *currPtr = headPtr;
+	while (currPtr->nextPtr) {
+		if (value == currPtr->data) {
+			count++;
+		}
+		currPtr = currPtr->nextPtr;
+	}
+	return count;
 }
 
 /**
  *	The valueIndex() function retrieve the position index number of sepcific 
  *	value in the sorted list
  *	
- *	@param int value containing the value that be searched in the sorted list
+ *	@param int value containing the value that is searched in the sorted list
  *
  *	@returns int contais the index number of the specific value in the 
  *	sorted list
@@ -157,9 +167,12 @@ int main() {
 	list.insert(77);
 	list.insert(44);
 	list.insert(5);
-	for (int i = 0; i < list.getLength(); i++) {
+	list.insert(5);
+	list.insert(5);
+	for (int i = 0; i < 6; i++) {
 		cout << list.getElement(i) << endl;
 	}
+	cout << endl << list.valueCount(5) << endl;
 	return 0; 
 
 }
