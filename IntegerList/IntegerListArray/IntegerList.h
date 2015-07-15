@@ -4,7 +4,7 @@
  *		<h3>
  *			File Name: IntegerList.h <br>
  *			CSC 340 Summer 2015 <br>
- *			Team Members: Juteng Tan, Tony Tran, David Tran
+ *			
  *		</h3>
  *
  *		<p>

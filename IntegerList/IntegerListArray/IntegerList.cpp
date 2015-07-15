@@ -1,6 +1,6 @@
 // 6/26/2015
 // CSC 340, Summber 2015
-// Team Members: Juteng Tan, Tony Tran, David Tran.
+
 // This is the implementation file of the header file "IntegerList.h".
 // It contains the construction and functions method of the class IntegerList,
 // which is in the header file.
@@ -30,7 +30,6 @@ IntegerList::~IntegerList() {
  * 
  */
 void IntegerList::push(int value) {
-
 	length++;
 	int* listCopy = new int[length];
 	listCopy[0] = value;

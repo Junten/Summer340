@@ -1,6 +1,6 @@
 //	7/11/2015
 //	CSC340, Summer 2015
-//	Writen By: Junteng Tan
+
 //	This is the implementation file of the header fiel "SortedIntegerList.h"
 //	It contains the construtor, destruction and function method of the class
 //	SortedIntegerList, which is contained in the header filer.
