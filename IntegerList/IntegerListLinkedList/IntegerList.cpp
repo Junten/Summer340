@@ -10,12 +10,13 @@
 using namespace std;
 
 /** 
- * 	The default constructor, initializes int <b>length</b> to be 0 and the linked list first node <b>first</b> to 
+ * 	The default constructor, initializes int <b>length</b> to be 0 and the
+ *linked list first node <b>first</b> to 
  * 	be null pointer. 
  */
 IntegerList::IntegerList():length(0) {
 	headPtr = new Node();
-	headPtr = 0;
+	headPtr = nullptr;
 }
 
 /** 
@@ -33,9 +34,11 @@ void IntegerList::push(int value) {
 }
 
 /**
- * 	The pop() function removes and retrieved the integer from the beginning of the list
+ * 	The pop() function removes and retrieved the integer from the beginning of 
+ *	the list
  *
- * 	@returns int <b>popValue</b> contains the integer that is removed from the list
+ * 	@returns int <b>popValue</b> contains the integer that is removed from the 
+ *	list
  */
 int IntegerList::pop(){
 	if (length == 0) {
@@ -65,7 +68,7 @@ void IntegerList::pushEnd(int value) {
 	length++;
 	Node *newPtr = new Node();
 	newPtr->data = value;
-	newPtr->nextPtr = 0;
+	newPtr->nextPtr = nullptr;
 	Node *currPtr = headPtr;
 
 	while (currPtr->nextPtr) {
@@ -91,12 +94,12 @@ int IntegerList::popEnd() {
 		delete headPtr;
 	} else {
 		Node *currPtr = headPtr;
-		Node *prePtr = 0; 
+		Node *prePtr = nullptr;
 		while (currPtr->nextPtr) {
 			prePtr = currPtr;
 			currPtr = currPtr->nextPtr;
 		}	
-		prePtr->nextPtr = 0;
+		prePtr->nextPtr = nullptr;
 		popValue = currPtr->data;
 		delete currPtr;	           
 	}
@@ -108,7 +111,7 @@ int IntegerList::popEnd() {
  *
  *	@returns int containing the numbers of integer in the list
  */
-int IntegerList::getLength(){
+int IntegerList::getLength() {
 	return length;
 }
 
@@ -117,7 +120,8 @@ int IntegerList::getLength(){
  *
  *	@param int <b>element</b> contains the integer referring to the index number
  *
- *	@returns int containing the integer of the list in the specific element position
+ *	@returns int containing the integer of the list in the specific element
+ *  position
  */
 int IntegerList::getElement(int element){
 	Node *currPtr = headPtr;
@@ -125,52 +129,54 @@ int IntegerList::getElement(int element){
 		currPtr = currPtr->nextPtr;
 	}
 	return currPtr->data;
-}`
+}
 
 /**
  *	The bubbleSort() arrange the integer list in ascending order
  */
 void IntegerList::bubbleSort() {
-	Node *currPtr = headPtr;
-	Node *prevPtr = nullptr;
+	Node *currPtr = nullptr;
+	Node *p;
+	Node *p2;
+	Node *p1 = new Node();
+	p1->nextPtr = headPtr;
+	headPtr = p1;
 
-	Node **lhs = &currPtr;
-	Node **rhs = &currPtr->nextPtr;
+	for (currPtr = nullptr; currPtr != headPtr; currPtr = p) {
+		for (p = p1 = headPtr; p1->nextPtr->nextPtr != currPtr; p1 = p1->nextPtr) {
+			if (p1->nextPtr->data > p1->nextPtr->nextPtr->data) {
+				p2 = p1->nextPtr->nextPtr;
+				p1->nextPtr->nextPtr = p2->nextPtr;
+				p2->nextPtr = p1->nextPtr;
+				p1->nextPtr = p2;
+				p = p1->nextPtr->nextPtr;
+			}
+		}
+	}
 
-	// bool sorted = false;
-	// int beginIndex = 0;
-	// int endIndex = length;
-	// Node *currPtr = head;
-	// Node *firstPrev =  ;
-	// Node *secondPrev = 0;
-
-	// for (int i = 1; i < endIndex && !sorted; i++) {
-	// 	sorted = true;
-	// 	prevPtr = currPtr;
-	// 	currPtr = currPtr->nextPtr;
-		
-	// 	for (int j = beginIndex; j < endIndex - i; j++) {
-	// 		if (prevPtr->data > currPtr->data) {
-	// 			Node *tempPtr = prevPtr;
-			  		
-	// 		}
-	// 	}	
-	// }	
+	p1 = headPtr;
+	headPtr = headPtr->nextPtr;
+	delete p1;
+	p1 = nullptr;
 }
 
 
-/**
 int main() {
 	IntegerList list;
 	list.push(1);
 	list.push(2);
 	list.push(3);
-//	for (int i = 0; i < 3; i++) {
-//		cout << i << ": " << list.getElement(i) << endl;
-//	}
+	for (int i = 0; i < 3; i++) {
+		cout << i << ": " << list.getElement(i) << endl;
+	}
 	cout << "Previous size: " << list.getLength() << endl;
 	cout << "list[1]: " << list.pop() << endl;
 	cout << "after size: " << list.getLength() << endl;
+	list.push(3);
+	list.bubbleSort();
+	for (int i = 0; i < 3; i++) {
+		cout << i << ": " << list.getElement(i) << endl;
+	}
 	return 0;
 }
-*/
+
