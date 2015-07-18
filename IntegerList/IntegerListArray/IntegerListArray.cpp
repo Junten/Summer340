@@ -6,14 +6,14 @@
 // which is in the header file.
 
 #include <iostream>
-#include "IntegerList.h"
+#include "IntegerListArray.h"
 using namespace std;
 
 /** 
- * 	The default constructor, initializes int <b>length</b> to be 0 and the pointer <b>list</b> to 
- * 	be null pointer. 
+ * 	The default constructor, initializes int <b>length</b> to be 0 and the 
+ *	pointer <b>list</b> to be null pointer. 
  */
-IntegerList::IntegerList() :length(0), list(0){
+IntegerList::IntegerList() :length(0), list(nullptr){
 }
 
 /**
@@ -44,9 +44,11 @@ void IntegerList::push(int value) {
 }
 
 /**
- * 	The pop() function removes and retrieved the integer from the beginning of the array
+ * 	The pop() function removes and retrieved the integer from the beginning of 
+ *	the array
  *
- * 	@returns int <b>popValue</b> contains the integer that is removed from the array 
+ * 	@returns int <b>popValue</b> contains the integer that is removed from the 
+ *	array 
  */
 int IntegerList::pop(){
 	if (length == 0) {
@@ -130,7 +132,8 @@ int IntegerList::getLength(){
  *
  *	@param int <b>element</b> contains the integer referring to the index number
  *
- *	@returns int containing the integer of the list in the specific element position
+ *	@returns int containing the integer of the list in the specific element 
+ *  position
  */
 int IntegerList::getElement(int element){
 	return list[element];

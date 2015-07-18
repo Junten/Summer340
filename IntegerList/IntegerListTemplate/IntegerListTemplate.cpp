@@ -6,25 +6,25 @@
 // which is in the header file.
 
 #include <iostream>
-#include "IntegerList.h"
 using namespace std;
 
 /** 
- * 	The default constructor, initializes int <b>length</b> to be 0 and the linked list first node <b>first</b> to 
- * 	be null pointer. 
+ * 	The default constructor, initializes int <b>length</b> to be 0 and the
+ *  linked list first node <b>first</b> to be null pointer. 
  */
+template<typename DataType>
 IntegerList::IntegerList():length(0) {
 	headPtr = new Node();
-	headPtr = 0;
+	headPtr = nullptr;
 }
 
 /** 
  * 	The push() function add an integer to the beginning of the list.
  *
  *  @param int <b>value</b> contains the integer that be added to the lsit.
- * 
  */
-void IntegerList::push(int value) {
+template<typename DataType>
+void IntegerList::push(DataType value) {
 	length++;
 	Node *newPtr = new Node();
 	newPtr->data = value;
@@ -33,18 +33,21 @@ void IntegerList::push(int value) {
 }
 
 /**
- * 	The pop() function removes and retrieved the integer from the beginning of the list
+ * 	The pop() function removes and retrieved the integer from the beginning of 
+ *  the list
  *
- * 	@returns int <b>popValue</b> contains the integer that is removed from the list
+ * 	@returns int <b>popValue</b> contains the integer that is removed from the 
+ *	list
  */
-int IntegerList::pop(){
+template<typename DataType>
+DataType IntegerList::pop(){
 	if (length == 0) {
 		cout << "Error! The list is empty!" << endl;
 		return 0;
 	}
 	
 	length--;
-	int popValue = 0;
+	DataType popValue = 0;
 	if (length == 0) {
 		delete headPtr;
 	} else {
@@ -61,11 +64,12 @@ int IntegerList::pop(){
  *
  *	@param int <b>value</b> contains the integer that is adding to the list
  */
+template<typename DataType>
 void IntegerList::pushEnd(int value) {
 	length++;
 	Node *newPtr = new Node();
 	newPtr->data = value;
-	newPtr->nextPtr = 0;
+	newPtr->nextPtr = nullptr;
 	Node *currPtr = headPtr;
 
 	while (currPtr->nextPtr) {
@@ -79,24 +83,25 @@ void IntegerList::pushEnd(int value) {
  *
  *	@returns int contaibs the integer that is removed from the list
  */
-int IntegerList::popEnd() {
+template<typename DataType>
+DataType IntegerList::popEnd() {
 	if (length == 0) {
 		cout << "Error! The list is empty!" << endl;
 		return 0;
 	}
 
 	length--;
-	int popValue = 0;
+	DataType popValue = 0;
 	if (length == 0) {
 		delete headPtr;
 	} else {
 		Node *currPtr = headPtr;
-		Node *prePtr = 0; 
+		Node *prePtr = nullptr; 
 		while (currPtr->nextPtr) {
 			prePtr = currPtr;
 			currPtr = currPtr->nextPtr;
 		}	
-		prePtr->nextPtr = 0;
+		prePtr->nextPtr = nullptr;
 		popValue = currPtr->data;
 		delete currPtr;	           
 	}
@@ -108,6 +113,7 @@ int IntegerList::popEnd() {
  *
  *	@returns int containing the numbers of integer in the list
  */
+template<typename DataType>
 int IntegerList::getLength(){
 	return length;
 }
@@ -117,60 +123,55 @@ int IntegerList::getLength(){
  *
  *	@param int <b>element</b> contains the integer referring to the index number
  *
- *	@returns int containing the integer of the list in the specific element position
+ *	@returns int containing the integer of the list in the specific element
+ *  position
  */
-int IntegerList::getElement(int element){
+template<typename DataType>
+DataType IntegerList::getElement(int element){
 	Node *currPtr = headPtr;
 	for(int i = 0; i < element; i++) {
 		currPtr = currPtr->nextPtr;
 	}
 	return currPtr->data;
-}`
+}
 
 /**
  *	The bubbleSort() arrange the integer list in ascending order
  */
+template<typename DataType>
 void IntegerList::bubbleSort() {
-	Node *currPtr = headPtr;
-	Node *prevPtr = nullptr;
+	Node *stopPtr = nullptr; 
+	Node *endPtr = nullptr; 
+	Node *tempPtr = nullptr;
+	Node *currPtr = new Node();
 
-	Node **lhs = &currPtr;
-	Node **rhs = &currPtr->nextPtr;
+	//	adding one more Node in the beginning of the list
+	currPtr->nextPtr = headPtr;
+	//	headPte pointing to the added Node, delete the added Node after sorting
+	headPtr = currPtr;
 
-	// bool sorted = false;
-	// int beginIndex = 0;
-	// int endIndex = length;
-	// Node *currPtr = head;
-	// Node *firstPrev =  ;
-	// Node *secondPrev = 0;
 
-	// for (int i = 1; i < endIndex && !sorted; i++) {
-	// 	sorted = true;
-	// 	prevPtr = currPtr;
-	// 	currPtr = currPtr->nextPtr;
-		
-	// 	for (int j = beginIndex; j < endIndex - i; j++) {
-	// 		if (prevPtr->data > currPtr->data) {
-	// 			Node *tempPtr = prevPtr;
-			  		
-	// 		}
-	// 	}	
-	// }	
+	//	record the last swapped postion, and stop the loop when last the swapped
+	//	postion at the first Node
+	for (stopPtr = nullptr; stopPtr != headPtr; stopPtr = endPtr) {
+		for (endPtr = currPtr = headPtr; currPtr->nextPtr->nextPtr != stopPtr; 
+			currPtr = currPtr->nextPtr) {
+
+			if (currPtr->nextPtr->data > currPtr->nextPtr->nextPtr->data) {
+				//	record the current postion before swaping
+				tempPtr = currPtr->nextPtr->nextPtr;
+				//	swapped the pointersss
+				currPtr->nextPtr->nextPtr = tempPtr->nextPtr;
+				tempPtr->nextPtr = currPtr->nextPtr;
+				currPtr->nextPtr = tempPtr;
+				//	record the swapped postion
+				endPtr = currPtr->nextPtr->nextPtr;
+			}
+		}
+	}
+
+	//	delete the first Node which is created before for comparison
+	currPtr = headPtr;
+	headPtr = headPtr->nextPtr;
+	delete currPtr;
 }
-
-
-/**
-int main() {
-	IntegerList list;
-	list.push(1);
-	list.push(2);
-	list.push(3);
-//	for (int i = 0; i < 3; i++) {
-//		cout << i << ": " << list.getElement(i) << endl;
-//	}
-	cout << "Previous size: " << list.getLength() << endl;
-	cout << "list[1]: " << list.pop() << endl;
-	cout << "after size: " << list.getLength() << endl;
-	return 0;
-}
-*/

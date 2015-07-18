@@ -6,7 +6,7 @@
 
 #include <iostream>
 #include <vector>
-#include "IntegerList.h"
+#include "IntegerListVector.h"
 using namespace std;
 
 /** 

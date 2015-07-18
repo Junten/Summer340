@@ -1,12 +1,11 @@
 // 6/26/2015
 // CSC 340, Summber 2015
-
 // This is the implementation file of the header file "IntegerList.h".
 // It contains the constructor and functions method of the class IntegerList,
 // which is in the header file.
 
 #include <iostream>
-#include "IntegerList.h"
+#include "IntegerListLinked.h"
 using namespace std;
 
 /** 
@@ -135,48 +134,38 @@ int IntegerList::getElement(int element){
  *	The bubbleSort() arrange the integer list in ascending order
  */
 void IntegerList::bubbleSort() {
-	Node *currPtr = nullptr;
-	Node *p;
-	Node *p2;
-	Node *p1 = new Node();
-	p1->nextPtr = headPtr;
-	headPtr = p1;
+	Node *stopPtr = nullptr; 
+	Node *endPtr = nullptr; 
+	Node *tempPtr = nullptr;
+	Node *currPtr = new Node();
 
-	for (currPtr = nullptr; currPtr != headPtr; currPtr = p) {
-		for (p = p1 = headPtr; p1->nextPtr->nextPtr != currPtr; p1 = p1->nextPtr) {
-			if (p1->nextPtr->data > p1->nextPtr->nextPtr->data) {
-				p2 = p1->nextPtr->nextPtr;
-				p1->nextPtr->nextPtr = p2->nextPtr;
-				p2->nextPtr = p1->nextPtr;
-				p1->nextPtr = p2;
-				p = p1->nextPtr->nextPtr;
+	//	adding one more Node in the beginning of the list
+	currPtr->nextPtr = headPtr;
+	//	headPte pointing to the added Node, delete the added Node after sorting
+	headPtr = currPtr;
+
+
+	//	record the last swapped postion, and stop the loop when last the swapped
+	//	postion at the first Node
+	for (stopPtr = nullptr; stopPtr != headPtr; stopPtr = endPtr) {
+		for (endPtr = currPtr = headPtr; currPtr->nextPtr->nextPtr != stopPtr; 
+			currPtr = currPtr->nextPtr) {
+
+			if (currPtr->nextPtr->data > currPtr->nextPtr->nextPtr->data) {
+				//	record the current postion before swaping
+				tempPtr = currPtr->nextPtr->nextPtr;
+				//	swapped the pointersss
+				currPtr->nextPtr->nextPtr = tempPtr->nextPtr;
+				tempPtr->nextPtr = currPtr->nextPtr;
+				currPtr->nextPtr = tempPtr;
+				//	record the swapped postion
+				endPtr = currPtr->nextPtr->nextPtr;
 			}
 		}
 	}
 
-	p1 = headPtr;
+	//	delete the first Node which is created before for comparison
+	currPtr = headPtr;
 	headPtr = headPtr->nextPtr;
-	delete p1;
-	p1 = nullptr;
+	delete currPtr;
 }
-
-
-int main() {
-	IntegerList list;
-	list.push(1);
-	list.push(2);
-	list.push(3);
-	for (int i = 0; i < 3; i++) {
-		cout << i << ": " << list.getElement(i) << endl;
-	}
-	cout << "Previous size: " << list.getLength() << endl;
-	cout << "list[1]: " << list.pop() << endl;
-	cout << "after size: " << list.getLength() << endl;
-	list.push(3);
-	list.bubbleSort();
-	for (int i = 0; i < 3; i++) {
-		cout << i << ": " << list.getElement(i) << endl;
-	}
-	return 0;
-}
-

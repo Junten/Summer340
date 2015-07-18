@@ -27,7 +27,9 @@
  *			Create this class using a dynamic array as described in class.
  *      	To delete any arrays that are no longer using.
  *
- *			<cite>Source of UML: Provided by instructor, Marc Sosnick-Perez.</cite>
+ *			<cite>
+ *				Source of UML: Provided by instructor, Marc Sosnick-Perez.
+ * 			</cite>
  * 		</p>
  */
 
@@ -37,12 +39,15 @@
 /**
  *	This is the linked list node class
  */
+
+template<typename DataType>
 class Node {
 public:
-	int data;
+	DataType data;
 	Node *nextPtr;
 };
 
+template<typename DataType>
 class IntegerList{
 private:
 	// First pointer node of the list
@@ -51,13 +56,14 @@ private:
 	int length;  
 public:
 	IntegerList();
-	void push(int value);
-	int pop();
-	void pushEnd(int value);
-	int popEnd();
+	void push(DataType value);
+	DataType pop();
+	void pushEnd(DataType value);
+	DataType popEnd();
 	int getLength();
-	int getElement(int element);
+	DataType getElement(int element);
 	void bubbleSort();
 };
 
+#include "IntegerListTemplate.cpp"
 #endif

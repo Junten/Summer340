@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include <stdexcept>
-#include "SortedIntegerList.h"
+#include "IntegerListSorted.h"
 using namespace std;
 
 /**
@@ -95,7 +95,8 @@ int SortedIntegerList::getElement(int index) {
 /**
  *	The valueCount() function get the numbers of the value in the sorted list
  *	
- *	@param int value conataing the value that is searched for number in the sorted list
+ *	@param int value conataing the value that is searched for number in the 
+ *  sorted list
  *
  *	@returns int containing the numbers of integer in the list
  */
