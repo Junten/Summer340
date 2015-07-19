@@ -33,29 +33,29 @@
  * 		</p>
  */
 
-#ifndef __INTEGERLIST__H__
-#define __INTEGERLIST__H__
-
+#ifndef __INTEGERLISTTEMPLATE__H__
+#define __INTEGERLISTTEMPLATE__H__
+#include <iostream>
+using namespace std;
 /**
  *	This is the linked list node class
  */
-
 template<typename DataType>
 class Node {
 public:
 	DataType data;
-	Node *nextPtr;
+	Node<DataType> *nextPtr;
 };
 
 template<typename DataType>
-class IntegerList{
+class IntegerListTemplate {
 private:
 	// First pointer node of the list
-	Node *headPtr;   
+	Node<DataType> *headPtr;   
 	// The size of the integer list
 	int length;  
 public:
-	IntegerList();
+	IntegerListTemplate();
 	void push(DataType value);
 	DataType pop();
 	void pushEnd(DataType value);

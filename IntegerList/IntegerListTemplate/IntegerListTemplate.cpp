@@ -13,8 +13,8 @@ using namespace std;
  *  linked list first node <b>first</b> to be null pointer. 
  */
 template<typename DataType>
-IntegerList::IntegerList():length(0) {
-	headPtr = new Node();
+IntegerListTemplate<DataType>::IntegerListTemplate():length(0) {
+	headPtr = new Node<DataType>();
 	headPtr = nullptr;
 }
 
@@ -24,9 +24,9 @@ IntegerList::IntegerList():length(0) {
  *  @param int <b>value</b> contains the integer that be added to the lsit.
  */
 template<typename DataType>
-void IntegerList::push(DataType value) {
+void IntegerListTemplate<DataType>::push(DataType value) {
 	length++;
-	Node *newPtr = new Node();
+	Node<DataType> *newPtr = new Node<DataType>();
 	newPtr->data = value;
 	newPtr->nextPtr = headPtr;
 	headPtr = newPtr;
@@ -40,7 +40,7 @@ void IntegerList::push(DataType value) {
  *	list
  */
 template<typename DataType>
-DataType IntegerList::pop(){
+DataType IntegerListTemplate<DataType>::pop(){
 	if (length == 0) {
 		cout << "Error! The list is empty!" << endl;
 		return 0;
@@ -51,7 +51,7 @@ DataType IntegerList::pop(){
 	if (length == 0) {
 		delete headPtr;
 	} else {
-		Node *tempPtr = headPtr;
+		Node<DataType> *tempPtr = headPtr;
 		popValue = tempPtr->data;
 		headPtr = tempPtr->nextPtr;
 		delete tempPtr;
@@ -65,12 +65,12 @@ DataType IntegerList::pop(){
  *	@param int <b>value</b> contains the integer that is adding to the list
  */
 template<typename DataType>
-void IntegerList::pushEnd(int value) {
+void IntegerListTemplate<DataType>::pushEnd(DataType value) {
 	length++;
-	Node *newPtr = new Node();
+	Node<DataType> *newPtr = new Node<DataType>();
 	newPtr->data = value;
 	newPtr->nextPtr = nullptr;
-	Node *currPtr = headPtr;
+	Node<DataType> *currPtr = headPtr;
 
 	while (currPtr->nextPtr) {
 		currPtr = currPtr->nextPtr;
@@ -84,7 +84,7 @@ void IntegerList::pushEnd(int value) {
  *	@returns int contaibs the integer that is removed from the list
  */
 template<typename DataType>
-DataType IntegerList::popEnd() {
+DataType IntegerListTemplate<DataType>::popEnd() {
 	if (length == 0) {
 		cout << "Error! The list is empty!" << endl;
 		return 0;
@@ -95,15 +95,15 @@ DataType IntegerList::popEnd() {
 	if (length == 0) {
 		delete headPtr;
 	} else {
-		Node *currPtr = headPtr;
-		Node *prePtr = nullptr; 
+		Node<DataType> *currPtr = headPtr;
+		Node<DataType> *prePtr = nullptr; 
 		while (currPtr->nextPtr) {
 			prePtr = currPtr;
 			currPtr = currPtr->nextPtr;
 		}	
 		prePtr->nextPtr = nullptr;
 		popValue = currPtr->data;
-		delete currPtr;	           
+		delete currPtr;           
 	}
 	return 0;
 }
@@ -114,21 +114,22 @@ DataType IntegerList::popEnd() {
  *	@returns int containing the numbers of integer in the list
  */
 template<typename DataType>
-int IntegerList::getLength(){
+int IntegerListTemplate<DataType>::getLength(){
 	return length;
 }
 
 /**	
  *	The getElement() get the integer based on the element position in the list
  *
- *	@param int <b>element</b> contains the integer referring to the index number
+ *	@param int <b>element</b> contains the integer referring to the index 
+ *	number
  *
  *	@returns int containing the integer of the list in the specific element
  *  position
  */
 template<typename DataType>
-DataType IntegerList::getElement(int element){
-	Node *currPtr = headPtr;
+DataType IntegerListTemplate<DataType>::getElement(int element){
+	Node<DataType> *currPtr = headPtr;
 	for(int i = 0; i < element; i++) {
 		currPtr = currPtr->nextPtr;
 	}
@@ -139,11 +140,11 @@ DataType IntegerList::getElement(int element){
  *	The bubbleSort() arrange the integer list in ascending order
  */
 template<typename DataType>
-void IntegerList::bubbleSort() {
-	Node *stopPtr = nullptr; 
-	Node *endPtr = nullptr; 
-	Node *tempPtr = nullptr;
-	Node *currPtr = new Node();
+void IntegerListTemplate<DataType>::bubbleSort() {
+	Node<DataType> *stopPtr = nullptr; 
+	Node<DataType> *endPtr = nullptr; 
+	Node<DataType> *tempPtr = nullptr;
+	Node<DataType> *currPtr = new Node<DataType>();
 
 	//	adding one more Node in the beginning of the list
 	currPtr->nextPtr = headPtr;
@@ -151,7 +152,8 @@ void IntegerList::bubbleSort() {
 	headPtr = currPtr;
 
 
-	//	record the last swapped postion, and stop the loop when last the swapped
+	//	record the last swapped postion, and stop the loop when last the
+	//	swapped
 	//	postion at the first Node
 	for (stopPtr = nullptr; stopPtr != headPtr; stopPtr = endPtr) {
 		for (endPtr = currPtr = headPtr; currPtr->nextPtr->nextPtr != stopPtr; 
