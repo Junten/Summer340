@@ -6,16 +6,27 @@
 
 #include <iostream>
 #include "IntegerListLinked.h"
+#include "Node.h"
 using namespace std;
 
 /** 
  * 	The default constructor, initializes int <b>length</b> to be 0 and the
- *linked list first node <b>first</b> to 
+ *  linked list first node <b>first</b> to 
  * 	be null pointer. 
  */
-IntegerList::IntegerList():length(0) {
-	headPtr = new Node();
-	headPtr = nullptr;
+IntegerListLinked::IntegerListLinked():length(0),headPtr(nullptr) {
+}
+
+/**
+ *	The default destructor, delete all the nodes of the integer list
+ */
+IntegerListLinked::~IntegerListLinked() {
+	Node<int> *tempPtr = headPtr;
+	while (headPtr) {
+		headPtr = headPtr->nextPtr;
+		delete tempPtr;
+		tempPtr = headPtr;
+	}
 }
 
 /** 
@@ -24,9 +35,9 @@ IntegerList::IntegerList():length(0) {
  *  @param int <b>value</b> contains the integer that be added to the lsit.
  * 
  */
-void IntegerList::push(int value) {
+void IntegerListLinked::push(int value) {
 	length++;
-	Node *newPtr = new Node();
+	Node<int> *newPtr = new Node<int>();
 	newPtr->data = value;
 	newPtr->nextPtr = headPtr;
 	headPtr = newPtr;
@@ -39,22 +50,18 @@ void IntegerList::push(int value) {
  * 	@returns int <b>popValue</b> contains the integer that is removed from the 
  *	list
  */
-int IntegerList::pop(){
-	if (length == 0) {
+int IntegerListLinked::pop(){
+	if (!headPtr) {
 		cout << "Error! The list is empty!" << endl;
 		return 0;
 	}
 	
 	length--;
 	int popValue = 0;
-	if (length == 0) {
-		delete headPtr;
-	} else {
-		Node *tempPtr = headPtr;
-		popValue = tempPtr->data;
-		headPtr = tempPtr->nextPtr;
-		delete tempPtr;
-	}
+	Node<int> *tempPtr = headPtr;
+	popValue = headPtr->data;
+	headPtr = tempPtr->nextPtr;
+	delete tempPtr;
 	return popValue;
 }
 
@@ -63,17 +70,20 @@ int IntegerList::pop(){
  *
  *	@param int <b>value</b> contains the integer that is adding to the list
  */
-void IntegerList::pushEnd(int value) {
+void IntegerListLinked::pushEnd(int value) {
 	length++;
-	Node *newPtr = new Node();
+	Node<int> *newPtr = new Node<int>();
 	newPtr->data = value;
 	newPtr->nextPtr = nullptr;
-	Node *currPtr = headPtr;
-
-	while (currPtr->nextPtr) {
-		currPtr = currPtr->nextPtr;
+	if (!headPtr) {
+		headPtr = newPtr;
+	} else {
+		Node<int> *currPtr = headPtr;
+		while (currPtr->nextPtr != nullptr) {
+			currPtr = currPtr->nextPtr;
+		}
+		currPtr->nextPtr = newPtr; 
 	}
-	currPtr->nextPtr = newPtr; 
 }
 
 /**	
@@ -81,28 +91,30 @@ void IntegerList::pushEnd(int value) {
  *
  *	@returns int contaibs the integer that is removed from the list
  */
-int IntegerList::popEnd() {
-	if (length == 0) {
+int IntegerListLinked::popEnd() {
+	if (headPtr == nullptr) {
 		cout << "Error! The list is empty!" << endl;
 		return 0;
 	}
 
 	length--;
 	int popValue = 0;
-	if (length == 0) {
-		delete headPtr;
-	} else {
-		Node *currPtr = headPtr;
-		Node *prePtr = nullptr;
-		while (currPtr->nextPtr) {
-			prePtr = currPtr;
-			currPtr = currPtr->nextPtr;
-		}	
-		prePtr->nextPtr = nullptr;
-		popValue = currPtr->data;
-		delete currPtr;	           
+	Node<int> *currPtr = headPtr;
+	Node<int> *prePtr = nullptr;
+	while (currPtr->nextPtr) {
+		prePtr = currPtr;
+		currPtr = currPtr->nextPtr;
 	}
-	return 0;
+	
+	if (currPtr == headPtr) 
+		headPtr = nullptr;
+	else 
+		prePtr->nextPtr = nullptr;
+
+	popValue = currPtr->data;
+	delete currPtr;	           
+	
+	return popValue;
 }
 
 /**	
@@ -110,7 +122,7 @@ int IntegerList::popEnd() {
  *
  *	@returns int containing the numbers of integer in the list
  */
-int IntegerList::getLength() {
+int IntegerListLinked::getLength() {
 	return length;
 }
 
@@ -122,8 +134,8 @@ int IntegerList::getLength() {
  *	@returns int containing the integer of the list in the specific element
  *  position
  */
-int IntegerList::getElement(int element){
-	Node *currPtr = headPtr;
+int IntegerListLinked::getElement(int element){
+	Node<int> *currPtr = headPtr;
 	for(int i = 0; i < element; i++) {
 		currPtr = currPtr->nextPtr;
 	}
@@ -133,11 +145,11 @@ int IntegerList::getElement(int element){
 /**
  *	The bubbleSort() arrange the integer list in ascending order
  */
-void IntegerList::bubbleSort() {
-	Node *stopPtr = nullptr; 
-	Node *endPtr = nullptr; 
-	Node *tempPtr = nullptr;
-	Node *currPtr = new Node();
+void IntegerListLinked::bubbleSort() {
+	Node<int> *stopPtr = nullptr; 
+	Node<int> *endPtr = nullptr; 
+	Node<int> *tempPtr = nullptr;
+	Node<int> *currPtr = new Node<int>();
 
 	//	adding one more Node in the beginning of the list
 	currPtr->nextPtr = headPtr;

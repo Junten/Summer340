@@ -27,37 +27,33 @@
  *			Create this class using a dynamic array as described in class.
  *      	To delete any arrays that are no longer using.
  *
- *			<cite>Source of UML: Provided by instructor, Marc Sosnick-Perez.</cite>
+ *			<cite>
+ *				Source of UML: Provided by instructor, Marc Sosnick-Perez.
+ * 			</cite>
  * 		</p>
  */
 
-#ifndef __INTEGERLIST__H__
-#define __INTEGERLIST__H__
 
-/**
- *	This is the linked list node class
- */
-class Node {
-public:
-	int data;
-	Node *nextPtr;
-};
+#ifndef __LIST__H__
+#define __LIST__H__
+#include "Node.h"
+using namespace std;
 
-class IntegerList{
+template <class T>
+class List{
 private:
-	// First pointer node of the list
-	Node *headPtr;   
-	// The size of the integer list
-	int length;  
+	Node<T>* headPtr;
+	int length;
 public:
-	IntegerList();
-	void push(int value);
-	int pop();
-	void pushEnd(int value);
-	int popEnd();
+	List();
+	void push(T value);
+	T pop();
+	void pushEnd(T value);
+	T popEnd();
 	int getLength();
-	int getElement(int element);
+	T getElement(int element);
 	void bubbleSort();
 };
 
+#include "List.hxx"
 #endif

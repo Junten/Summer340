@@ -13,7 +13,7 @@ using namespace std;
  * 	The default constructor, initializes length to be 0 and the pointerlist to
  * 	be null pointer. 
  */
-IntegerList::IntegerList():length(0) {
+IntegerListVector::IntegerListVector():length(0) {
 	list = new vector<int> ();
 }
 
@@ -23,7 +23,7 @@ IntegerList::IntegerList():length(0) {
  *  @param int <b>value</b> contains the integer that be added to the integerlist.
  * 
  */
-void IntegerList::push(int value) {
+void IntegerListVector::push(int value) {
 	list->insert(list->begin(), value);
 	length++;
 }
@@ -35,10 +35,10 @@ void IntegerList::push(int value) {
  * 	@returns int <b>popValue</b> contains the integer that is removed from 
  *	the integer list
  */
-int IntegerList::pop(){
-	int popValue = list->front();
-	list->erase(list->back());
+int IntegerListVector::pop() {
 	length--;
+	int popValue = list->front();
+	list->erase(list->begin());
 	return popValue;
 }
 
@@ -47,7 +47,7 @@ int IntegerList::pop(){
  *
  *	@param int <b>value</b> contains the integer that is adding to the integer list
  */
-void IntegerList::pushEnd(int value) {
+void IntegerListVector::pushEnd(int value) {
 	list->push_back(value);
 	length++;
 }
@@ -57,9 +57,9 @@ void IntegerList::pushEnd(int value) {
  *
  *	@returns int contaibs the integer that is removed from the array
  */
-int IntegerList::popEnd() {
-	int popValue = list->back();
+int IntegerListVector::popEnd() {
 	length--;
+	int popValue = list->back();
 	list->pop_back();
 	return popValue;
 }
@@ -68,7 +68,7 @@ int IntegerList::popEnd() {
  *
  *	@returns int containing the numbers of integer in the integer list
  */
-int IntegerList::getLength(){
+int IntegerListVector::getLength(){
 	return length;
 }
 
@@ -79,7 +79,7 @@ int IntegerList::getLength(){
  *
  *	@returns int containing the integer of the list in the specific element position
  */
-int IntegerList::getElement(int element){
+int IntegerListVector::getElement(int element){
 	return list->at(element);
 }
 
@@ -88,10 +88,10 @@ int IntegerList::getElement(int element){
  *
  *	@param int end is the last position of the element that would be sorted
  */
-void IntegerList::bubbleSort(int end) {
+void IntegerListVector::bubbleSort() {
  	bool sorted = false;	
 	int beginIndex = 0;
-	int endIndex = end;
+	int endIndex = length;
 
 	for (int i = 1; i < endIndex && !sorted; i++) {
 		sorted = true;
@@ -100,14 +100,9 @@ void IntegerList::bubbleSort(int end) {
 			if (list->at(j) > list->at(j + 1)) {
 				int temp = list->at(j);
 		    	list->at(j) = list->at(j + 1);
-				list->(j + 1) = temp;
+				list->at(j + 1) = temp;
 				sorted = false;
 			}
 		}	
 	}
-}
-
-int main() {
-	IntegerList array = IntegerList();
-
 }

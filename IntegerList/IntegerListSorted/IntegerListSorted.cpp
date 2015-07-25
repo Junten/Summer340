@@ -14,21 +14,18 @@ using namespace std;
  *	The default constructor, initializes int length to be 0 and headPtr 
  *	to be null pointer 
  */
-SortedIntegerList::SortedIntegerList():length(0) {
-	headPtr = new Node();
-	headPtr = nullptr;
+IntegerListSorted::IntegerListSorted():length(0), headPtr(nullptr) {
 }
 
 /**
  *	The destructor, delete all the nodes of the integer list 
  */
-SortedIntegerList::~SortedIntegerList() {
-	Node *currPtr = headPtr;
-	Node *tempPtr = headPtr;
-	while (currPtr->nextPtr) {
-		currPtr = currPtr->nextPtr;
+IntegerListSorted::~IntegerListSorted() {
+	Node<int> *tempPtr = headPtr;
+	while (headPtr) {
+		headPtr = headPtr->nextPtr;
 		delete tempPtr;
-		tempPtr = currPtr;
+		tempPtr = headPtr;
 	}
 }
 
@@ -39,10 +36,10 @@ SortedIntegerList::~SortedIntegerList() {
  *	@param int value contains the integer that be added to the sorted 
  *	list
  */
-void SortedIntegerList::insert(int value) {
-	Node *currPtr = headPtr;
-	Node *prevPtr = nullptr;
-	Node *newPtr = new Node();
+void IntegerListSorted::insert(int value) {
+	Node<int> *currPtr = headPtr;
+	Node<int> *prevPtr = nullptr;
+	Node<int> *newPtr = new Node<int>();
 	newPtr->data = value;
 	newPtr->nextPtr = nullptr;
 
@@ -81,8 +78,8 @@ void SortedIntegerList::insert(int value) {
  *	@returns int contain the integer of the sorted list in the specific 
  *	index postion
  */
-int SortedIntegerList::getElement(int index) {
-	Node *currPtr = headPtr;
+int IntegerListSorted::getElement(int index) {
+	Node<int> *currPtr = headPtr;
 	int currentIndex = 0;
 
 	while (index != currentIndex) {
@@ -100,9 +97,9 @@ int SortedIntegerList::getElement(int index) {
  *
  *	@returns int containing the numbers of integer in the list
  */
-int SortedIntegerList::valueCount(int value) {
+int IntegerListSorted::valueCount(int value) {
 	int count = 0;
-	Node *currPtr = headPtr;
+	Node<int> *currPtr = headPtr;
 	while (currPtr->nextPtr) {
 		if (value == currPtr->data) {
 			count++;
@@ -121,9 +118,9 @@ int SortedIntegerList::valueCount(int value) {
  *	@returns int contais the index number of the specific value in the 
  *	sorted list
  */
-int SortedIntegerList::valueIndex(int value) {
+int IntegerListSorted::valueIndex(int value) {
 	int currentIndex = 0;
-	Node *currPtr = headPtr;
+	Node<int> *currPtr = headPtr;
 	bool valueExist = false;
 	while(currPtr->nextPtr) {
 		if (value == currPtr->data) {
@@ -149,9 +146,9 @@ int SortedIntegerList::valueIndex(int value) {
  *	@param int index containing the index number that be removed from the 
  *	sorted list
  */
-void SortedIntegerList::indexDelete(int index) {
-	Node *currPtr = headPtr;
-	Node *prevPtr = nullptr;
+void IntegerListSorted::remove(int index) {
+	Node<int> *currPtr = headPtr;
+	Node<int> *prevPtr = nullptr;
 	int currentIndex = 0;
 
 	while (index != currentIndex) {
@@ -161,28 +158,13 @@ void SortedIntegerList::indexDelete(int index) {
 	}
 	prevPtr->nextPtr = currPtr->nextPtr;
 	delete currPtr;
-}
+}	
 
-
-// int main() {
-// 	SortedIntegerList list;
-
-// 	list.insert(78);
-// 	list.insert(77);
-// 	list.insert(44);
-// 	list.insert(5);
-// 	list.insert(5);
-// 	list.insert(5);
-// 	for (int i = 0; i < 6; i++) {
-// 		cout << list.getElement(i) << endl;
-// 	}
-
-// 	cout << list.valueIndex(90) << endl;
-
-// 	list.indexDelete(3);
-// 	for (int i = 0; i < 5; i++) {
-// 		cout << list.getElement(i) << endl;
-// 	}
-// 	return 0; 
-
-// }
+/**	
+ *	The getLength() get the numbers of integers in the list
+ *
+ *	@returns int containing the numbers of integer in the list
+ */
+ int IntegerListSorted::getLength() {
+ 	return length;
+ }

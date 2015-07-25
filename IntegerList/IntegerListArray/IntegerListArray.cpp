@@ -13,14 +13,7 @@ using namespace std;
  * 	The default constructor, initializes int <b>length</b> to be 0 and the 
  *	pointer <b>list</b> to be null pointer. 
  */
-IntegerList::IntegerList() :length(0), list(nullptr){
-}
-
-/**
- *	The destructor delete all the value in the integer list
- */
-IntegerList::~IntegerList() {
-	delete[] list;
+IntegerListArray::IntegerListArray() :length(0), list(nullptr){
 }
 
 /** 
@@ -29,7 +22,7 @@ IntegerList::~IntegerList() {
  *  @param int <b>value</b> contains the integer that be added to the array.
  * 
  */
-void IntegerList::push(int value) {
+void IntegerListArray::push(int value) {
 	length++;
 	int* listCopy = new int[length];
 	listCopy[0] = value;
@@ -50,7 +43,7 @@ void IntegerList::push(int value) {
  * 	@returns int <b>popValue</b> contains the integer that is removed from the 
  *	array 
  */
-int IntegerList::pop(){
+int IntegerListArray::pop(){
 	if (length == 0) {
 		cout << "Error! The list is empty!" << endl;
 		return 0;
@@ -78,7 +71,7 @@ int IntegerList::pop(){
  *
  *	@param int <b>value</b> contains the integer that is adding to the array
  */
-void IntegerList::pushEnd(int value) {
+void IntegerListArray::pushEnd(int value) {
 	length++;
 	int* listCopy = new int[length];
 
@@ -96,7 +89,7 @@ void IntegerList::pushEnd(int value) {
  *
  *	@returns int contaibs the integer that is removed from the array
  */
-int IntegerList::popEnd() {
+int IntegerListArray::popEnd() {
 	if (length == 0) {
 		cout << "Error! The list is empty!" << endl;
 		return 0;
@@ -123,7 +116,7 @@ int IntegerList::popEnd() {
  *
  *	@returns int containing the numbers of integer in the array
  */
-int IntegerList::getLength(){
+int IntegerListArray::getLength(){
 	return length;
 }
 
@@ -135,14 +128,14 @@ int IntegerList::getLength(){
  *	@returns int containing the integer of the list in the specific element 
  *  position
  */
-int IntegerList::getElement(int element){
+int IntegerListArray::getElement(int element){
 	return list[element];
 }
 
 /**
  *	The bubbleSort() arrange the integer list in ascending order 
  */
-void IntegerList::bubbleSort() {
+void IntegerListArray::bubbleSort() {
  	bool sorted = false;	
 	int beginIndex = 0;
 	int endIndex = length;
@@ -159,16 +152,4 @@ void IntegerList::bubbleSort() {
 			}
 		}	
 	}
-}
-
-int main() {
-	IntegerList a;
-	for(int i = 0; i < 10; i++) {
-		a.pushEnd(10 - i);
-	}
-	a.bubbleSort();
-	for (int i = 0; i < a.getLength(); i++) {
-		cout << i << ": " << a.getElement(i) << endl;
-	}
-	return 0;
 }

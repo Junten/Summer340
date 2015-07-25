@@ -1,14 +1,14 @@
-#ifndef __INTEGERLISTVECTOR__H__
-#define __INTEGERLISTVECTOR__H__
-#include <vector>
-using namespace std;
+#ifndef __INTEGERLISTLINKED__H__
+#define __INTEGERLISTLINKED__H__
+#include "Node.h"
 
-class IntegerListVector{
+class IntegerListLinked{
 private:
-	vector<int> *list;
+	Node<int>* headPtr;
 	int length;
 public:
-	IntegerListVector();
+	IntegerListLinked();
+	~IntegerListLinked();
 	void push(int value);
 	int pop();
 	void pushEnd(int value);
