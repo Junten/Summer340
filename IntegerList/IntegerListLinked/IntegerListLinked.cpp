@@ -74,10 +74,11 @@ void IntegerListLinked::pushEnd(int value) {
 	Node<int> *newPtr = new Node<int>();
 	newPtr->data = value;
 	newPtr->nextPtr = nullptr;
+	Node<int> *currPtr = headPtr;
+	
 	if (!headPtr) {
 		headPtr = newPtr;
 	} else {
-		Node<int> *currPtr = headPtr;
 		while (currPtr->nextPtr) {
 			currPtr = currPtr->nextPtr;
 		}
@@ -104,13 +105,14 @@ int IntegerListLinked::popEnd() {
 		currPtr = currPtr->nextPtr;
 	}
 	
-	if (currPtr == headPtr) 
+	if (currPtr == headPtr) {
 		headPtr = nullptr;
-	else 
+	} else {
 		prePtr->nextPtr = nullptr;
+	}
 
 	popValue = currPtr->data;
-	delete currPtr;	           
+	delete currPtr;      
 	
 	return popValue;
 }
