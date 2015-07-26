@@ -5,7 +5,6 @@
 // It contains the construction and functions method of the class IntegerList,
 // which is in the header file.
 
-#include <iostream>
 #include <stdexcept>
 #include "IntegerListArray.h"
 using namespace std;
@@ -125,8 +124,9 @@ int IntegerListArray::getLength(){
  *  position
  */
 int IntegerListArray::getElement(int element){
-	if (element < 0 || element >= length)
-		throw out_of_range("Out of Range Error in getLength()");
+	if (element < 0 || element >= length) {
+		throw out_of_range("Out of Range Error in getElement()");
+	}
 	return list[element];
 }
 

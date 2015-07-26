@@ -4,7 +4,7 @@ using namespace std;
 
 int main() {
 	IntegerListArray list;
-	//list.pop();
+	//list.popEnd();
 	list.pushEnd(83);
 	list.push(33);
 	list.push(34);
@@ -17,7 +17,7 @@ int main() {
 		cout << "[" << i << "]: " << list.getElement(i) << endl;
 	}
 	cout << endl;
-	list.getElement(45);
+	list.getElement(-45);
 	list.bubbleSort();
 	for (int i = 0; i < 6; i++) {
 		cout << "[" << i << "]: " << list.getElement(i) << endl;

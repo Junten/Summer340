@@ -5,7 +5,6 @@
 //	It contains the construtor, destruction and function method of the class
 //	SortedIntegerList, which is contained in the header filer.
 
-#include <iostream>
 #include <stdexcept>
 #include "IntegerListSorted.h"
 using namespace std;
@@ -79,8 +78,9 @@ void IntegerListSorted::insert(int value) {
  *	index postion
  */
 int IntegerListSorted::getElement(int index) {
-	if (index < 0 || index >= length)
+	if (index < 0 || index >= length) {
 		throw out_of_range("Out of Range Error in getElement()");
+	}
 
 	Node<int> *currPtr = headPtr;
 	for(int i = 0; i < index; i++) {
@@ -147,8 +147,9 @@ int IntegerListSorted::valueIndex(int value) {
  *	sorted list
  */
 void IntegerListSorted::remove(int index) {
-	if (index < 0 || index >= length)
+	if (index < 0 || index >= length) {
 		throw out_of_range("Out of Range Error in remove()");
+	}
 
 	Node<int> *currPtr = headPtr;
 	Node<int> *prevPtr = nullptr;
