@@ -4,7 +4,7 @@
 // It contains the construction and functions method of the class IntegerList,
 // which is in the header file.
 
-#include <iostream>
+#include <stdexcept>
 #include <vector>
 #include "IntegerListVector.h"
 using namespace std;
@@ -36,6 +36,10 @@ void IntegerListVector::push(int value) {
  *	the integer list
  */
 int IntegerListVector::pop() {
+	if (length == 0) {
+		throw logic_error("Error in pop() function! The list is empty!");
+	}
+
 	length--;
 	int popValue = list->front();
 	list->erase(list->begin());
@@ -58,6 +62,10 @@ void IntegerListVector::pushEnd(int value) {
  *	@returns int contaibs the integer that is removed from the array
  */
 int IntegerListVector::popEnd() {
+	if (length == 0) {
+		throw logic_error("Error in popEnd() function! The list is empty!");
+	}
+	
 	length--;
 	int popValue = list->back();
 	list->pop_back();
@@ -68,7 +76,7 @@ int IntegerListVector::popEnd() {
  *
  *	@returns int containing the numbers of integer in the integer list
  */
-int IntegerListVector::getLength(){
+int IntegerListVector::getLength() {
 	return length;
 }
 
@@ -79,7 +87,11 @@ int IntegerListVector::getLength(){
  *
  *	@returns int containing the integer of the list in the specific element position
  */
-int IntegerListVector::getElement(int element){
+int IntegerListVector::getElement(int element) {
+	if (element < 0 || element >= length) {
+		throw out_of_range("Out of Range Error in getElement()");
+	}
+
 	return list->at(element);
 }
 

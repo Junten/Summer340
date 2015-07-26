@@ -4,6 +4,8 @@ using namespace std;
 
 int main() {
 	IntegerListVector list;
+	//list.pop();
+	list.popEnd();
 	list.pushEnd(43);
 	list.push(33);
 	list.push(34);
