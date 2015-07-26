@@ -5,7 +5,7 @@
 // It contains the constructor and functions method of the class IntegerList,
 // which is in the header file.
 
-#include <iostream>
+#include <stdexcept>
 #include "Node.h"
 using namespace std;
 
@@ -41,20 +41,15 @@ void List<DataType>::push(DataType value) {
 template<typename DataType>
 DataType List<DataType>::pop(){
 	if (length == 0) {
-		cout << "Error! The list is empty!" << endl;
-		return 0;
+		throw logic_error("Error in pop() function! The list is empty!");
 	}
 	
 	length--;
 	DataType popValue = 0;
-	if (length == 0) {
-		delete headPtr;
-	} else {
-		Node<DataType> *tempPtr = headPtr;
-		popValue = tempPtr->data;
-		headPtr = tempPtr->nextPtr;
-		delete tempPtr;
-	}
+	Node<DataType> *tempPtr = headPtr;
+	popValue = headPtr->data;
+	headPtr = tempPtr->nextPtr;
+	delete tempPtr;
 	return popValue;
 }
 
@@ -71,10 +66,14 @@ void List<DataType>::pushEnd(DataType value) {
 	newPtr->nextPtr = nullptr;
 	Node<DataType> *currPtr = headPtr;
 
-	while (currPtr->nextPtr) {
-		currPtr = currPtr->nextPtr;
+	if (!headPtr) {
+		headPtr = newPtr;
+	} else {
+		while (currPtr->nextPtr) {
+			currPtr = currPtr->nextPtr;
+		}
+		currPtr->nextPtr = newPtr; 
 	}
-	currPtr->nextPtr = newPtr; 
 }
 
 /**	
@@ -85,26 +84,28 @@ void List<DataType>::pushEnd(DataType value) {
 template<typename DataType>
 DataType List<DataType>::popEnd() {
 	if (length == 0) {
-		cout << "Error! The list is empty!" << endl;
-		return 0;
+		throw logic_error("Error in popEnd() function! The list is empty!");
 	}
 
 	length--;
 	DataType popValue = 0;
-	if (length == 0) {
-		delete headPtr;
-	} else {
-		Node<DataType> *currPtr = headPtr;
-		Node<DataType> *prePtr = nullptr; 
-		while (currPtr->nextPtr) {
-			prePtr = currPtr;
-			currPtr = currPtr->nextPtr;
-		}	
-		prePtr->nextPtr = nullptr;
-		popValue = currPtr->data;
-		delete currPtr;           
+	Node<DataType> *currPtr = headPtr;
+	Node<DataType> *prePtr = nullptr;
+	while (currPtr->nextPtr) {
+		prePtr = currPtr;
+		currPtr = currPtr->nextPtr;
 	}
-	return 0;
+	
+	if (currPtr == headPtr) {
+		headPtr = nullptr;
+	} else {
+		prePtr->nextPtr = nullptr;
+	}
+
+	popValue = currPtr->data;
+	delete currPtr;      
+	
+	return popValue;
 }
 
 /**	
@@ -127,7 +128,11 @@ int List<DataType>::getLength(){
  *  position
  */
 template<typename DataType>
-DataType List<DataType>::getElement(int element){
+DataType List<DataType>::getElement(int element) {
+	if (element < 0 || element >= length) {
+		throw out_of_range("Out of Range Error in getElement()");
+	}
+
 	Node<DataType> *currPtr = headPtr;
 	for(int i = 0; i < element; i++) {
 		currPtr = currPtr->nextPtr;
