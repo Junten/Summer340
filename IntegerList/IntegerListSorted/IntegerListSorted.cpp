@@ -79,12 +79,12 @@ void IntegerListSorted::insert(int value) {
  *	index postion
  */
 int IntegerListSorted::getElement(int index) {
-	Node<int> *currPtr = headPtr;
-	int currentIndex = 0;
+	if (index < 0 || index >= length)
+		throw out_of_range("Out of Range Error in getElement()");
 
-	while (index != currentIndex) {
+	Node<int> *currPtr = headPtr;
+	for(int i = 0; i < index; i++) {
 		currPtr = currPtr->nextPtr;
-		currentIndex++;
 	}
 	return currPtr->data;
 }
@@ -100,7 +100,7 @@ int IntegerListSorted::getElement(int index) {
 int IntegerListSorted::valueCount(int value) {
 	int count = 0;
 	Node<int> *currPtr = headPtr;
-	while (currPtr->nextPtr) {
+	while (currPtr) {
 		if (value == currPtr->data) {
 			count++;
 		}
@@ -147,17 +147,28 @@ int IntegerListSorted::valueIndex(int value) {
  *	sorted list
  */
 void IntegerListSorted::remove(int index) {
+	if (index < 0 || index >= length)
+		throw out_of_range("Out of Range Error in remove()");
+
 	Node<int> *currPtr = headPtr;
 	Node<int> *prevPtr = nullptr;
-	int currentIndex = 0;
-
-	while (index != currentIndex) {
-		currentIndex++;
-		prevPtr = currPtr;
-		currPtr = currPtr->nextPtr;
+	if (!headPtr->nextPtr) {
+		delete headPtr;
+		headPtr = nullptr;
+	} else {
+		for(int i = 0; i < index; i++) {
+			prevPtr = currPtr;
+			currPtr = currPtr->nextPtr;
+		}
+		if (index) {
+			prevPtr->nextPtr = currPtr->nextPtr;
+		}
+		else {
+			headPtr = currPtr->nextPtr;
+		}
+		delete currPtr;
 	}
-	prevPtr->nextPtr = currPtr->nextPtr;
-	delete currPtr;
+	length--;
 }	
 
 /**	

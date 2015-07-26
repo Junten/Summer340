@@ -4,7 +4,7 @@
 // It contains the constructor and functions method of the class IntegerList,
 // which is in the header file.
 
-#include <iostream>
+#include <stdexcept>
 #include "IntegerListLinked.h"
 #include "Node.h"
 using namespace std;
@@ -52,8 +52,7 @@ void IntegerListLinked::push(int value) {
  */
 int IntegerListLinked::pop(){
 	if (!headPtr) {
-		cout << "Error! The list is empty!" << endl;
-		return 0;
+		throw logic_error("Error in pop() function! The list is empty!");
 	}
 	
 	length--;
@@ -79,7 +78,7 @@ void IntegerListLinked::pushEnd(int value) {
 		headPtr = newPtr;
 	} else {
 		Node<int> *currPtr = headPtr;
-		while (currPtr->nextPtr != nullptr) {
+		while (currPtr->nextPtr) {
 			currPtr = currPtr->nextPtr;
 		}
 		currPtr->nextPtr = newPtr; 
@@ -93,8 +92,7 @@ void IntegerListLinked::pushEnd(int value) {
  */
 int IntegerListLinked::popEnd() {
 	if (headPtr == nullptr) {
-		cout << "Error! The list is empty!" << endl;
-		return 0;
+		throw logic_error("Error in popEnd() function! The list is empty!");
 	}
 
 	length--;
@@ -135,6 +133,10 @@ int IntegerListLinked::getLength() {
  *  position
  */
 int IntegerListLinked::getElement(int element){
+	if (element < 0 || element >= length) {
+		throw out_of_range("Out of Range Error in getElement()");
+	}
+
 	Node<int> *currPtr = headPtr;
 	for(int i = 0; i < element; i++) {
 		currPtr = currPtr->nextPtr;
