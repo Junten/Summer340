@@ -6,6 +6,7 @@
 // which is in the header file.
 
 #include <iostream>
+#include <stdexcept>
 #include "IntegerListArray.h"
 using namespace std;
 
@@ -26,13 +27,10 @@ void IntegerListArray::push(int value) {
 	length++;
 	int* listCopy = new int[length];
 	listCopy[0] = value;
-	for (int i = 0; i < length - 1; i++){
-		listCopy[i + 1] = list[i];
+	for (int i = 0; i < length - 1; i++) {
+		*(listCopy + i + 1) = *(list + i);
 	}
-
-	if (list != 0) {
-		delete[] list;
-	}
+	delete[] list;
 	list = listCopy;
 }
 
@@ -45,8 +43,7 @@ void IntegerListArray::push(int value) {
  */
 int IntegerListArray::pop(){
 	if (length == 0) {
-		cout << "Error! The list is empty!" << endl;
-		return 0;
+		throw logic_error("Error in pop() function! The list is empty!");
 	}
 
 	length--;
@@ -91,10 +88,9 @@ void IntegerListArray::pushEnd(int value) {
  */
 int IntegerListArray::popEnd() {
 	if (length == 0) {
-		cout << "Error! The list is empty!" << endl;
-		return 0;
+		throw logic_error("Error in popEnd() function! The list is empty!");
 	}
-
+	
 	length--;
 	int popValue = list[length];
 	if (length != 0) {
@@ -129,6 +125,8 @@ int IntegerListArray::getLength(){
  *  position
  */
 int IntegerListArray::getElement(int element){
+	if (element < 0 || element >= length)
+		throw out_of_range("Out of Range Error in getLength()");
 	return list[element];
 }
 
