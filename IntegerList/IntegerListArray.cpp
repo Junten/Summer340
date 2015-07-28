@@ -1,26 +1,27 @@
-// 6/26/2015
-// CSC 340, Summber 2015
-
-// This is the implementation file of the header file "IntegerList.h".
-// It contains the construction and functions method of the class IntegerList,
-// which is in the header file.
+//	The implementation file of the header file "IntegerListArray.h".
 
 #include <stdexcept>
 #include "IntegerListArray.h"
 using namespace std;
 
 /** 
- * 	The default constructor, initializes int <b>length</b> to be 0 and the 
- *	pointer <b>list</b> to be null pointer. 
+ * 	The default constructor, initializes int length to be 0 and the 
+ *	pointer list to be null pointer. 
  */
 IntegerListArray::IntegerListArray() :length(0), list(nullptr){
+}
+
+/**
+ *	The default destructor, delete all the nodes of the integer list
+ */
+IntegerListArray::~IntegerListArray() {
+	delete[] list;
 }
 
 /** 
  * 	The push() function add an integer to the beginning of the array.
  *
- *  @param int <b>value</b> contains the integer that be added to the array.
- * 
+ *  @param int value contains the integer that be added to the array.
  */
 void IntegerListArray::push(int value) {
 	length++;
@@ -34,13 +35,12 @@ void IntegerListArray::push(int value) {
 }
 
 /**
- * 	The pop() function removes and retrieved the integer from the beginning of 
+ * 	The pop() function removes and retrieved the integer from the beginning of
  *	the array
  *
- * 	@returns int <b>popValue</b> contains the integer that is removed from the 
- *	array 
+ * 	@returns int contains the integer that is removed from the array 
  */
-int IntegerListArray::pop(){
+int IntegerListArray::pop() {
 	if (length == 0) {
 		throw logic_error("Error in pop() function! The list is empty!");
 	}
@@ -65,7 +65,7 @@ int IntegerListArray::pop(){
 /**	
  *  The pushEnd() function add an integer at the end of the array 
  *
- *	@param int <b>value</b> contains the integer that is adding to the array
+ *	@param int value contains the integer that is adding to the array
  */
 void IntegerListArray::pushEnd(int value) {
 	length++;
@@ -118,10 +118,9 @@ int IntegerListArray::getLength(){
 /**	
  *	The getElement() get the integer based on the element position in the array
  *
- *	@param int <b>element</b> contains the integer referring to the index number
+ *	@param int element contains the index number to the value in the list
  *
- *	@returns int containing the integer of the list in the specific element 
- *  position
+ *	@returns int contains the value of the list in the specific position
  */
 int IntegerListArray::getElement(int element){
 	if (element < 0 || element >= length) {
@@ -131,7 +130,7 @@ int IntegerListArray::getElement(int element){
 }
 
 /**
- *	The bubbleSort() arrange the integer list in ascending order 
+ *	The bubbleSort() arrange the value of list in ascending order 
  */
 void IntegerListArray::bubbleSort() {
  	bool sorted = false;	

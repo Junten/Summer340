@@ -1,11 +1,7 @@
-//	7/11/2015
-//	CSC340, Summer 2015
-
-//	This is the implementation file of the header fiel "SortedIntegerList.h"
-//	It contains the construtor, destruction and function method of the class
-//	SortedIntegerList, which is contained in the header filer.
+//	The implementation file of the header fiel "IntegerListSorted.h"
 
 #include <stdexcept>
+#include <iostream>
 #include "IntegerListSorted.h"
 using namespace std;
 
@@ -29,7 +25,7 @@ IntegerListSorted::~IntegerListSorted() {
 }
 
 /**
- *	The insert() function add an integer to the list in the ascending 
+ *	The insert() function adds an integer to the list in the ascending 
  *	order
  *	
  *	@param int value contains the integer that be added to the sorted 
@@ -69,10 +65,10 @@ void IntegerListSorted::insert(int value) {
 }
 
 /**
- *	The getElement() retrieve the integer based on the element postion
- *	in the sorted list
+ *	The getElement() retrieve the integer based on the value's postion in the 
+ *	sorted list
  *	
- *	@param int index contains the integer referring to the index numher
+ *	@param int index contains the index number refer to the value in the list
  *
  *	@returns int contain the integer of the sorted list in the specific 
  *	index postion
@@ -90,12 +86,12 @@ int IntegerListSorted::getElement(int index) {
 }
 
 /**
- *	The valueCount() function get the numbers of the value in the sorted list
+ *	The valueCount() function getS the numbers of the value in the sorted list
  *	
- *	@param int value conataing the value that is searched for number in the 
- *  sorted list
+ *	@param int value conatains the value that is searched for index number in 
+ *	the sorted list
  *
- *	@returns int containing the numbers of integer in the list
+ *	@returns int contains the numbers of value in the sorted list
  */
 int IntegerListSorted::valueCount(int value) {
 	int count = 0;
@@ -110,10 +106,10 @@ int IntegerListSorted::valueCount(int value) {
 }
 
 /**
- *	The valueIndex() function retrieve the position index number of sepcific 
- *	value in the sorted list
+ *	The valueIndex() function retrieves the index number of sepcific value in 
+ *	the sorted list
  *	
- *	@param int value containing the value that is searched in the sorted list
+ *	@param int value contains the value that is searched in the sorted list
  *
  *	@returns int contais the index number of the specific value in the 
  *	sorted list
@@ -143,8 +139,8 @@ int IntegerListSorted::valueIndex(int value) {
  *	The delete() function remove the value of the specific index position 
  *	in the sorted list
  *	
- *	@param int index containing the index number that be removed from the 
- *	sorted list
+ *	@param int index contains the index number for the postion of value that 
+ *	is removed from the sorted list
  */
 void IntegerListSorted::remove(int index) {
 	if (index < 0 || index >= length) {
@@ -173,9 +169,9 @@ void IntegerListSorted::remove(int index) {
 }	
 
 /**	
- *	The getLength() get the numbers of integers in the list
+ *	The getLength() get the numbers of values in the list
  *
- *	@returns int containing the numbers of integer in the list
+ *	@returns int contains the numbers of value in the list
  */
  int IntegerListSorted::getLength() {
  	return length;
